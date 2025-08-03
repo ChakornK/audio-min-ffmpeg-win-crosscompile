@@ -16,12 +16,16 @@ Deploy a Linux VM on the host of your choice (>= 20.04 for Ubuntu), or natively 
 
 Download the script by cloning this repository via git:
 
-    $ git clone https://github.com/rdp/ffmpeg-windows-build-helpers.git
-    $ cd ffmpeg-windows-build-helpers
+```sh
+git clone https://github.com/ChakornK/audio-min-ffmpeg-win-crosscompile.git ffmpeg
+cd ffmpeg
+```
 
- Now run the script:
-    
-    $ ./cross_compile_ffmpeg.sh
+Now run the script:
+
+```sh
+./cross_compile_ffmpeg.sh
+```
 
 Answer the prompts.
 It should end up with a working, statically-built ffmpeg.exe binary within the "`sandbox/*/ffmpeg_git`" director(ies).  You're done!
@@ -30,7 +34,9 @@ If you're on a "too old" version of linux (or a distro besides Ubuntu, which is 
 
 Another option which might save time (but doesn't have as many options, just creates an ffmpeg/x264/fdk-aac) instead of running `./cross_compile_ffmpeg.sh` is to run 
 
-    $ quick_build/quick_cross_compile_ffmpeg_fdk_aac_and_x264_using_packaged_mingw64.sh
+```sh
+quick_build/quick_cross_compile_ffmpeg_fdk_aac_and_x264_using_packaged_mingw64.sh
+```
     
 script.
 Note the "quick" part here which attempts to use the locally installed `mingw-w64` package from your distribution for the cross compiler, thus skipping the time-intensive cross-compiler toolchain build step.  It's not as well tested as running the normal one, however, which builds gcc from scratch.
@@ -39,7 +45,9 @@ For Mac OSX users, simply follow the instructions for Linux above and built it n
 
 To view additional arguments and options supported by the script, run:
 
-    ./cross_compile_ffmpeg.sh -h 
+```sh
+./cross_compile_ffmpeg.sh -h
+```
 
 to see all the various options available.
 
