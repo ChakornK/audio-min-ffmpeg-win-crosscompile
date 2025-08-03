@@ -2519,9 +2519,9 @@ build_ffmpeg() {
     # config_options+=" --enable-libvpx"
     # config_options+=" --enable-libaom"
 
-    if [[ $compiler_flavors != "native" ]]; then
-      config_options+=" --enable-nvenc --enable-nvdec" # don't work OS X
-    fi
+    # if [[ $compiler_flavors != "native" ]]; then
+    #   config_options+=" --enable-nvenc --enable-nvdec" # don't work OS X
+    # fi
 
     # the order of extra-libs switches is important (appended in reverse)
     config_options+=" --extra-libs=-lz"
