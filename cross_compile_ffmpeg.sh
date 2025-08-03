@@ -1547,7 +1547,7 @@ build_libflite() {
   # download_and_unpack_file http://www.festvox.org/flite/packed/flite-2.1/flite-2.1-release.tar.bz2
   # original link is not working so using a substitute
   # from a trusted source
-  download_and_unpack_file http://deb.debian.org/debian/pool/main/f/flite/flite_2.1-release.orig.tar.bz2 flite-2.1-release
+  download_and_unpack_file https://old-releases.ubuntu.com/ubuntu/pool/universe/f/flite/flite_2.1-release.orig.tar.bz2 flite-2.1-release
   cd flite-2.1-release
     apply_patch file://$patch_dir/flite-2.1.0_mingw-w64-fixes.patch
     if [[ ! -f main/Makefile.bak ]]; then
@@ -2406,7 +2406,7 @@ build_ffmpeg() {
   fi
 
   cd $output_dir
-    apply_patch file://$patch_dir/frei0r_load-shared-libraries-dynamically.diff
+    # apply_patch file://$patch_dir/frei0r_load-shared-libraries-dynamically.diff
     if [ "$bits_target" = "32" ]; then
       local arch=x86
     else
@@ -2427,19 +2427,19 @@ build_ffmpeg() {
       # Fix WinXP incompatibility by disabling Microsoft's Secure Channel, because Windows XP doesn't support TLS 1.1 and 1.2, but with GnuTLS or OpenSSL it does.  XP compat!
     fi
     config_options="$init_options"
-    config_options+=" --enable-libcaca"
-    config_options+=" --enable-gray"
-    config_options+=" --enable-libtesseract"
-    config_options+=" --enable-fontconfig"
+    # config_options+=" --enable-libcaca"
+    # config_options+=" --enable-gray"
+    # config_options+=" --enable-libtesseract"
+    # config_options+=" --enable-fontconfig"
     config_options+=" --enable-gmp"
-    config_options+=" --enable-libass"
-    config_options+=" --enable-libbluray"
+    # config_options+=" --enable-libass"
+    # config_options+=" --enable-libbluray"
     config_options+=" --enable-libbs2b"
     config_options+=" --enable-libflite"
-    config_options+=" --enable-libfreetype"
-    config_options+=" --enable-libfribidi"
-    config_options+=" --enable-libharfbuzz"
-    config_options+=" --enable-filter=drawtext"
+    # config_options+=" --enable-libfreetype"
+    # config_options+=" --enable-libfribidi"
+    # config_options+=" --enable-libharfbuzz"
+    # config_options+=" --enable-filter=drawtext"
     config_options+=" --enable-libgme"
     config_options+=" --enable-libgsm"
     config_options+=" --enable-libilbc"
@@ -2451,68 +2451,76 @@ build_ffmpeg() {
     config_options+=" --enable-libsnappy"
     config_options+=" --enable-libsoxr"
     config_options+=" --enable-libspeex"
-    config_options+=" --enable-libtheora"
+    # config_options+=" --enable-libtheora"
     config_options+=" --enable-libtwolame"
     config_options+=" --enable-libvo-amrwbenc"
     config_options+=" --enable-libvorbis"
-    config_options+=" --enable-libwebp"
-    config_options+=" --enable-libzimg"
-    config_options+=" --enable-libzvbi"
+    # config_options+=" --enable-libwebp"
+    # config_options+=" --enable-libzimg"
+    # config_options+=" --enable-libzvbi"
     config_options+=" --enable-libmysofa"
-    config_options+=" --enable-libopenjpeg"
-    config_options+=" --enable-libopenh264"
-    config_options+=" --enable-libvmaf"
+    # config_options+=" --enable-libopenjpeg"
+    # config_options+=" --enable-libopenh264"
+    # config_options+=" --enable-libvmaf"
     config_options+=" --enable-libsrt"
     config_options+=" --enable-libxml2"
     config_options+=" --enable-opengl"
-    config_options+=" --enable-libdav1d"
+    # config_options+=" --enable-libdav1d"
     config_options+=" --enable-gnutls"
+
+    config_options+=" --disable-everything"
+    config_options+=" --enable-filter=a3dscope,aap,abench,abitscope,acompressor,acontrast,acopy,acrossfade,acrossover,acrusher,acue,adeclick,adeclip,adecorrelate,adelay,adenorm,aderivative,adrawgraph,adrc,adynamicequalizer,adynamicsmooth,aecho,aemphasis,aeval,aevalsrc,aexciter,afade,afdelaysrc,afftdn,afftfilt,afir,afireqsrc,afirsrc,aformat,afreqshift,afwtdn,agate,agraphmonitor,ahistogram,aiir,aintegral,ainterleave,alatency,alimiter,allpass,aloop,amerge,ametadata,amix,amovie,amplify,amultiply,anequalizer,anlmdn,anlmf,anlms,anoisesrc,anull,anullsink,anullsrc,apad,aperms,aphasemeter,aphaser,aphaseshift,apsnr,apsyclip,apulsator,arealtime,aresample,areverse,arls,arnndn,asdr,asegment,aselect,asendcmd,asetnsamples,asetpts,asetrate,asettb,ashowinfo,asidedata,asisdr,asoftclip,aspectralstats,asplit,astats,astreamselect,asubboost,asubcut,asupercut,asuperpass,asuperstop,atadenoise,atempo,atilt,atrim,avectorscope,avsynctest,axcorrelate,bass,compand,compensationdelay,crossfeed,crystalizer,dynaudnorm,earwax,equalizer,firequalizer,flanger,haas,hdcd,headphone,highpass,highshelf,hilbert,loudnorm,lowpass,lowshelf,mcompand,midequalizer,mix,noise,normalize,oscilloscope,pan,realtime,remap,replaygain,reverse,sidechaincompress,sidechaingate,silencedetect,silenceremove,sine,speechnorm,stereotools,stereowiden,superequalizer,surround,treble,tremolo,volume,volumedetect,virtualbass"
+    config_options+=" --enable-decoder=aac,ac3,mp3,opus,vorbis"
+    config_options+=" --enable-demuxer=mov,m4v,matroska,mp3,wav"
+    config_options+=" --enable-muxer=mp3,mp4,wav"
+    config_options+=" --enable-protocol=file"
+    config_options+=" --disable-autodetect"
 
     if [[ $OSTYPE != darwin* ]]; then
       config_options+=" --enable-vulkan"
     fi
 
-    if [[ "$bits_target" != "32" ]]; then
-      if [[ $build_svt_hevc = y ]]; then
-        # SVT-HEVC
-        # Apply the correct patches based on version. Logic (n4.4 patch for n4.2, n4.3 and n4.4)  based on patch notes here:
-        # https://github.com/OpenVisualCloud/SVT-HEVC/commit/b5587b09f44bcae70676f14d3bc482e27f07b773#diff-2b35e92117ba43f8397c2036658784ba2059df128c9b8a2625d42bc527dffea1
-        if [[ $ffmpeg_git_checkout_version == *"n4.4"* ]] || [[ $ffmpeg_git_checkout_version == *"n4.3"* ]] || [[ $ffmpeg_git_checkout_version == *"n4.2"* ]]; then
-          git apply "$work_dir/SVT-HEVC_git/ffmpeg_plugin/n4.4-0001-lavc-svt_hevc-add-libsvt-hevc-encoder-wrapper.patch"
-          git apply "$patch_dir/SVT-HEVC-0002-doc-Add-libsvt_hevc-encoder-docs.patch"  # upstream patch does not apply on current ffmpeg master
-        elif [[ $ffmpeg_git_checkout_version == *"n4.1"* ]] || [[ $ffmpeg_git_checkout_version == *"n3"* ]] || [[ $ffmpeg_git_checkout_version == *"n2"* ]]; then
-          : # too old...
-        else
-          # newer:
-          git apply "$work_dir/SVT-HEVC_git/ffmpeg_plugin/master-0001-lavc-svt_hevc-add-libsvt-hevc-encoder-wrapper.patch"
-        fi
-        config_options+=" --enable-libsvthevc"
-      fi
-      if [[ $build_svt_vp9 = y ]]; then
-        # SVT-VP9
-        # Apply the correct patches based on version. Logic (n4.4 patch for n4.2, n4.3 and n4.4)  based on patch notes here:
-        # https://github.com/OpenVisualCloud/SVT-VP9/tree/master/ffmpeg_plugin
-        if [[ $ffmpeg_git_checkout_version == *"n4.3.1"* ]]; then
-          git apply "$work_dir/SVT-VP9_git/ffmpeg_plugin/n4.3.1-0001-Add-ability-for-ffmpeg-to-run-svt-vp9.patch"
-        elif [[ $ffmpeg_git_checkout_version == *"n4.2.3"* ]]; then
-          git apply "$work_dir/SVT-VP9_git/ffmpeg_plugin/n4.2.3-0001-Add-ability-for-ffmpeg-to-run-svt-vp9.patch"
-        elif [[ $ffmpeg_git_checkout_version == *"n4.2.2"* ]]; then
-          git apply "$work_dir/SVT-VP9_git/ffmpeg_plugin/0001-Add-ability-for-ffmpeg-to-run-svt-vp9.patch"
-        else 
-          # newer:
-          git apply "$work_dir/SVT-VP9_git/ffmpeg_plugin/master-0001-Add-ability-for-ffmpeg-to-run-svt-vp9.patch"
-        fi
-        config_options+=" --enable-libsvtvp9"
-      fi
-      # SVT-AV1
-      # Apply patch on newer versions
-      if [[ $ffmpeg_git_checkout_version != *"n6"* ]] && [[ $ffmpeg_git_checkout_version != *"n5"* ]] && [[ $ffmpeg_git_checkout_version != *"n4"* ]] && [[ $ffmpeg_git_checkout_version != *"n3"* ]] && [[ $ffmpeg_git_checkout_version != *"n2"* ]]; then
-        git apply "$work_dir/SVT-AV1_git/.gitlab/workflows/linux/ffmpeg_n7_fix.patch"
-      fi
-      config_options+=" --enable-libsvtav1"
-    fi # else doesn't work/matter with 32 bit
-    config_options+=" --enable-libvpx"
-    config_options+=" --enable-libaom"
+    # if [[ "$bits_target" != "32" ]]; then
+    #   if [[ $build_svt_hevc = y ]]; then
+    #     # SVT-HEVC
+    #     # Apply the correct patches based on version. Logic (n4.4 patch for n4.2, n4.3 and n4.4)  based on patch notes here:
+    #     # https://github.com/OpenVisualCloud/SVT-HEVC/commit/b5587b09f44bcae70676f14d3bc482e27f07b773#diff-2b35e92117ba43f8397c2036658784ba2059df128c9b8a2625d42bc527dffea1
+    #     if [[ $ffmpeg_git_checkout_version == *"n4.4"* ]] || [[ $ffmpeg_git_checkout_version == *"n4.3"* ]] || [[ $ffmpeg_git_checkout_version == *"n4.2"* ]]; then
+    #       git apply "$work_dir/SVT-HEVC_git/ffmpeg_plugin/n4.4-0001-lavc-svt_hevc-add-libsvt-hevc-encoder-wrapper.patch"
+    #       git apply "$patch_dir/SVT-HEVC-0002-doc-Add-libsvt_hevc-encoder-docs.patch"  # upstream patch does not apply on current ffmpeg master
+    #     elif [[ $ffmpeg_git_checkout_version == *"n4.1"* ]] || [[ $ffmpeg_git_checkout_version == *"n3"* ]] || [[ $ffmpeg_git_checkout_version == *"n2"* ]]; then
+    #       : # too old...
+    #     else
+    #       # newer:
+    #       git apply "$work_dir/SVT-HEVC_git/ffmpeg_plugin/master-0001-lavc-svt_hevc-add-libsvt-hevc-encoder-wrapper.patch"
+    #     fi
+    #     config_options+=" --enable-libsvthevc"
+    #   fi
+    #   if [[ $build_svt_vp9 = y ]]; then
+    #     # SVT-VP9
+    #     # Apply the correct patches based on version. Logic (n4.4 patch for n4.2, n4.3 and n4.4)  based on patch notes here:
+    #     # https://github.com/OpenVisualCloud/SVT-VP9/tree/master/ffmpeg_plugin
+    #     if [[ $ffmpeg_git_checkout_version == *"n4.3.1"* ]]; then
+    #       git apply "$work_dir/SVT-VP9_git/ffmpeg_plugin/n4.3.1-0001-Add-ability-for-ffmpeg-to-run-svt-vp9.patch"
+    #     elif [[ $ffmpeg_git_checkout_version == *"n4.2.3"* ]]; then
+    #       git apply "$work_dir/SVT-VP9_git/ffmpeg_plugin/n4.2.3-0001-Add-ability-for-ffmpeg-to-run-svt-vp9.patch"
+    #     elif [[ $ffmpeg_git_checkout_version == *"n4.2.2"* ]]; then
+    #       git apply "$work_dir/SVT-VP9_git/ffmpeg_plugin/0001-Add-ability-for-ffmpeg-to-run-svt-vp9.patch"
+    #     else 
+    #       # newer:
+    #       git apply "$work_dir/SVT-VP9_git/ffmpeg_plugin/master-0001-Add-ability-for-ffmpeg-to-run-svt-vp9.patch"
+    #     fi
+    #     config_options+=" --enable-libsvtvp9"
+    #   fi
+    #   # SVT-AV1
+    #   # Apply patch on newer versions
+    #   if [[ $ffmpeg_git_checkout_version != *"n6"* ]] && [[ $ffmpeg_git_checkout_version != *"n5"* ]] && [[ $ffmpeg_git_checkout_version != *"n4"* ]] && [[ $ffmpeg_git_checkout_version != *"n3"* ]] && [[ $ffmpeg_git_checkout_version != *"n2"* ]]; then
+    #     git apply "$work_dir/SVT-AV1_git/.gitlab/workflows/linux/ffmpeg_n7_fix.patch"
+    #   fi
+    #   config_options+=" --enable-libsvtav1"
+    # fi # else doesn't work/matter with 32 bit
+    # config_options+=" --enable-libvpx"
+    # config_options+=" --enable-libaom"
 
     if [[ $compiler_flavors != "native" ]]; then
       config_options+=" --enable-nvenc --enable-nvdec" # don't work OS X
@@ -2520,9 +2528,9 @@ build_ffmpeg() {
 
     # the order of extra-libs switches is important (appended in reverse)
     config_options+=" --extra-libs=-lz"
-    config_options+=" --extra-libs=-lpng"
+    # config_options+=" --extra-libs=-lpng"
     config_options+=" --extra-libs=-lm" # libflite seemed to need this linux native...and have no .pc file huh?
-    config_options+=" --extra-libs=-lfreetype"
+    # config_options+=" --extra-libs=-lfreetype"
 
     if [[ $compiler_flavors != "native" ]]; then
       config_options+=" --extra-libs=-lshlwapi" # lame needed this, no .pc file?
@@ -2531,38 +2539,39 @@ build_ffmpeg() {
     config_options+=" --extra-libs=-lpthread" # for some reason various and sundry needed this linux native
 
     config_options+=" --extra-cflags=-DLIBTWOLAME_STATIC --extra-cflags=-DMODPLUG_STATIC --extra-cflags=-DCACA_STATIC" # if we ever do a git pull then it nukes changes, which overrides manual changes to configure, so just use these for now :|
-    if [[ $build_amd_amf = n ]]; then
-      config_options+=" --disable-amf" # Since its autodetected we have to disable it if we do not want it. #unless we define no autodetection but.. we don't.
-    else
-      config_options+=" --enable-amf" # This is actually autodetected but for consistency.. we might as well set it.
-    fi
+    # if [[ $build_amd_amf = n ]]; then
+    #   config_options+=" --disable-amf" # Since its autodetected we have to disable it if we do not want it. #unless we define no autodetection but.. we don't.
+    # else
+    #   config_options+=" --enable-amf" # This is actually autodetected but for consistency.. we might as well set it.
+    # fi
 
-    if [[ $build_intel_qsv = y && $compiler_flavors != "native" ]]; then # Broken for native builds right now: https://github.com/lu-zero/mfx_dispatch/issues/71
-      config_options+=" --enable-libmfx"
-    else
-      config_options+=" --disable-libmfx"
-    fi
+    # if [[ $build_intel_qsv = y && $compiler_flavors != "native" ]]; then # Broken for native builds right now: https://github.com/lu-zero/mfx_dispatch/issues/71
+    #   config_options+=" --enable-libmfx"
+    # else
+    #   config_options+=" --disable-libmfx"
+    # fi
     
-    if [[ $ffmpeg_git_checkout_version != *"n6.0"* ]] && [[ $ffmpeg_git_checkout_version != *"n5"* ]] && [[ $ffmpeg_git_checkout_version != *"n4"* ]] && [[ $ffmpeg_git_checkout_version != *"n3"* ]] && [[ $ffmpeg_git_checkout_version != *"n2"* ]]; then
-      # Disable libaribcatption on old versions
-      config_options+=" --enable-libaribcaption" # libaribcatption (MIT licensed)
-    fi
+    # if [[ $ffmpeg_git_checkout_version != *"n6.0"* ]] && [[ $ffmpeg_git_checkout_version != *"n5"* ]] && [[ $ffmpeg_git_checkout_version != *"n4"* ]] && [[ $ffmpeg_git_checkout_version != *"n3"* ]] && [[ $ffmpeg_git_checkout_version != *"n2"* ]]; then
+    #   # Disable libaribcatption on old versions
+    #   config_options+=" --enable-libaribcaption" # libaribcatption (MIT licensed)
+    # fi
     
     if [[ $enable_gpl == 'y' ]]; then
-      config_options+=" --enable-gpl --enable-frei0r --enable-librubberband --enable-libvidstab --enable-libx264 --enable-libx265 --enable-avisynth --enable-libaribb24"
-      config_options+=" --enable-libxvid --enable-libdavs2"
-      if [[ $host_target != 'i686-w64-mingw32' ]]; then
-        config_options+=" --enable-libxavs2"
-      fi
-      if [[ $compiler_flavors != "native" ]]; then
-        config_options+=" --enable-libxavs" # don't compile OS X
-      fi
+      # config_options+=" --enable-gpl --enable-frei0r --enable-librubberband --enable-libvidstab --enable-libx264 --enable-libx265 --enable-avisynth --enable-libaribb24"
+      config_options+=" --enable-gpl --enable-librubberband"
+      # config_options+=" --enable-libxvid --enable-libdavs2"
+      # if [[ $host_target != 'i686-w64-mingw32' ]]; then
+      #   config_options+=" --enable-libxavs2"
+      # fi
+      # if [[ $compiler_flavors != "native" ]]; then
+      #   config_options+=" --enable-libxavs" # don't compile OS X
+      # fi
     fi
     local licensed_gpl=n # lgpl build with libx264 included for those with "commercial" license :)
-    if [[ $licensed_gpl == 'y' ]]; then
-      apply_patch file://$patch_dir/x264_non_gpl.diff -p1
-      config_options+=" --enable-libx264"
-    fi
+    # if [[ $licensed_gpl == 'y' ]]; then
+    #   apply_patch file://$patch_dir/x264_non_gpl.diff -p1
+    #   config_options+=" --enable-libx264"
+    # fi
     # other possibilities:
     #   --enable-w32threads # [worse UDP than pthreads, so not using that]
 
@@ -2572,14 +2581,14 @@ build_ffmpeg() {
 
     config_options+=" $postpend_configure_opts"
 
-    if [[ "$non_free" = "y" ]]; then
-      config_options+=" --enable-nonfree --enable-libfdk-aac"
+    # if [[ "$non_free" = "y" ]]; then
+    #   config_options+=" --enable-nonfree --enable-libfdk-aac"
 
-      if [[ $compiler_flavors != "native" ]]; then
-        config_options+=" --enable-decklink" # Error finding rpc.h in native builds even if it's available
-      fi
-      # other possible options: --enable-openssl [unneeded since we already use gnutls]
-    fi
+    #   if [[ $compiler_flavors != "native" ]]; then
+    #     config_options+=" --enable-decklink" # Error finding rpc.h in native builds even if it's available
+    #   fi
+    #   # other possible options: --enable-openssl [unneeded since we already use gnutls]
+    # fi
 
     do_debug_build=n # if you need one for backtraces/examining segfaults using gdb.exe ... change this to y :) XXXX make it affect x264 too...and make it real param :)
     if [[ "$do_debug_build" = "y" ]]; then
@@ -2697,41 +2706,41 @@ build_ffmpeg_dependencies() {
   echo "Building ffmpeg dependency libraries..."
   if [[ $compiler_flavors != "native" ]]; then # build some stuff that don't build native...
     build_dlfcn
-    build_libxavs
+    # build_libxavs
   fi
 
-  build_libdavs2
-  if [[ $host_target != 'i686-w64-mingw32' ]]; then
-    build_libxavs2
-  fi
+  # build_libdavs2
+  # if [[ $host_target != 'i686-w64-mingw32' ]]; then
+  #   build_libxavs2
+  # fi
 
   build_meson_cross
   build_mingw_std_threads
   build_zlib # Zlib in FFmpeg is autodetected.
-  build_libcaca # Uses zlib and dlfcn (on windows).
+  # build_libcaca # Uses zlib and dlfcn (on windows).
   build_bzip2 # Bzlib (bzip2) in FFmpeg is autodetected.
   build_liblzma # Lzma in FFmpeg is autodetected. Uses dlfcn.
   build_iconv # Iconv in FFmpeg is autodetected. Uses dlfcn.
   build_sdl2 # Sdl2 in FFmpeg is autodetected. Needed to build FFPlay. Uses iconv and dlfcn.
-  if [[ $build_amd_amf = y ]]; then
-    build_amd_amf_headers
-  fi
-  if [[ $build_intel_qsv = y && $compiler_flavors != "native" ]]; then # Broken for native builds right now: https://github.com/lu-zero/mfx_dispatch/issues/71
-    build_intel_qsv_mfx
-  fi
+  # if [[ $build_amd_amf = y ]]; then
+  #   build_amd_amf_headers
+  # fi
+  # if [[ $build_intel_qsv = y && $compiler_flavors != "native" ]]; then # Broken for native builds right now: https://github.com/lu-zero/mfx_dispatch/issues/71
+  #   build_intel_qsv_mfx
+  # fi
   build_nv_headers
-  build_libzimg # Uses dlfcn.
-  build_libopenjpeg
+  # build_libzimg # Uses dlfcn.
+  # build_libopenjpeg
   build_glew
   build_glfw
   #build_libjpeg_turbo # mplayer can use this, VLC qt might need it? [replaces libjpeg] (ffmpeg seems to not need it so commented out here)
-  build_libpng # Needs zlib >= 1.0.4. Uses dlfcn.
-  build_libwebp # Uses dlfcn.
-  build_harfbuzz
+  # build_libpng # Needs zlib >= 1.0.4. Uses dlfcn.
+  # build_libwebp # Uses dlfcn.
+  # build_harfbuzz
   # harf does now include build_freetype # Uses zlib, bzip2, and libpng.
   build_libxml2 # Uses zlib, liblzma, iconv and dlfcn.
-  build_libvmaf
-  build_fontconfig # Needs freetype and libxml >= 2.6. Uses iconv and dlfcn.
+  # build_libvmaf
+  # build_fontconfig # Needs freetype and libxml >= 2.6. Uses iconv and dlfcn.
   build_gmp # For rtmp support configure FFmpeg with '--enable-gmp'. Uses dlfcn.
   #build_librtmfp # mainline ffmpeg doesn't use it yet
   build_libnettle # Needs gmp >= 3.0. Uses dlfcn.
@@ -2747,7 +2756,7 @@ build_ffmpeg_dependencies() {
   build_libopus # Uses dlfcn.
   build_libspeexdsp # Needs libogg for examples. Uses dlfcn.
   build_libspeex # Uses libspeexdsp and dlfcn.
-  build_libtheora # Needs libogg >= 1.1. Needs libvorbis >= 1.0.1, sdl and libpng for test, programs and examples [disabled]. Uses dlfcn.
+  # build_libtheora # Needs libogg >= 1.1. Needs libvorbis >= 1.0.1, sdl and libpng for test, programs and examples [disabled]. Uses dlfcn.
   build_libsndfile "install-libgsm" # Needs libogg >= 1.1.3 and libvorbis >= 1.2.3 for external support [disabled]. Uses dlfcn. 'build_libsndfile "install-libgsm"' to install the included LibGSM 6.10.
   build_mpg123
   build_lame # Uses dlfcn, mpg123
@@ -2756,7 +2765,7 @@ build_ffmpeg_dependencies() {
   build_libilbc # Uses dlfcn.
   build_libmodplug # Uses dlfcn.
   build_libgme
-  build_libbluray # Needs libxml >= 2.6, freetype, fontconfig. Uses dlfcn.
+  # build_libbluray # Needs libxml >= 2.6, freetype, fontconfig. Uses dlfcn.
   build_libbs2b # Needs libsndfile. Uses dlfcn.
   build_libsoxr
   build_libflite
@@ -2765,49 +2774,49 @@ build_ffmpeg_dependencies() {
   build_fftw # Uses dlfcn.
   build_libsamplerate # Needs libsndfile >= 1.0.6 and fftw >= 0.15.0 for tests. Uses dlfcn.
   build_librubberband # Needs libsamplerate, libsndfile, fftw and vamp_plugin. 'configure' will fail otherwise. Eventhough librubberband doesn't necessarily need them (libsndfile only for 'rubberband.exe' and vamp_plugin only for "Vamp audio analysis plugin"). How to use the bundled libraries '-DUSE_SPEEX' and '-DUSE_KISSFFT'?
-  build_frei0r # Needs dlfcn. could use opencv...
-  if [[ "$bits_target" != "32" ]]; then
-    if [[ $build_svt_hevc = y ]]; then
-      build_svt-hevc
-    fi
-    if [[ $build_svt_vp9 = y ]]; then
-      build_svt-vp9
-    fi
-    build_svt-av1
-  fi
-  build_vidstab
+  # build_frei0r # Needs dlfcn. could use opencv...
+  # if [[ "$bits_target" != "32" ]]; then
+  #   if [[ $build_svt_hevc = y ]]; then
+  #     build_svt-hevc
+  #   fi
+  #   if [[ $build_svt_vp9 = y ]]; then
+  #     build_svt-vp9
+  #   fi
+  #   build_svt-av1
+  # fi
+  # build_vidstab
   #build_facebooktransform360 # needs modified ffmpeg to use it so not typically useful
   build_libmysofa # Needed for FFmpeg's SOFAlizer filter (https://ffmpeg.org/ffmpeg-filters.html#sofalizer). Uses dlfcn.
-  if [[ "$non_free" = "y" ]]; then
-    build_fdk-aac # Uses dlfcn.
-    if [[ $compiler_flavors != "native" ]]; then
-      build_libdecklink # Error finding rpc.h in native builds even if it's available
-    fi
-  fi
-  build_zvbi # Uses iconv, libpng and dlfcn.
-  build_fribidi # Uses dlfcn.
-  build_libass # Needs freetype >= 9.10.3 (see https://bugs.launchpad.net/ubuntu/+source/freetype1/+bug/78573 o_O) and fribidi >= 0.19.0. Uses fontconfig >= 2.10.92, iconv and dlfcn.
+  # if [[ "$non_free" = "y" ]]; then
+  #   build_fdk-aac # Uses dlfcn.
+  #   if [[ $compiler_flavors != "native" ]]; then
+  #     build_libdecklink # Error finding rpc.h in native builds even if it's available
+  #   fi
+  # fi
+  # build_zvbi # Uses iconv, libpng and dlfcn.
+  # build_fribidi # Uses dlfcn.
+  # build_libass # Needs freetype >= 9.10.3 (see https://bugs.launchpad.net/ubuntu/+source/freetype1/+bug/78573 o_O) and fribidi >= 0.19.0. Uses fontconfig >= 2.10.92, iconv and dlfcn.
 
-  build_libxvid # FFmpeg now has native support, but libxvid still provides a better image.
+  # build_libxvid # FFmpeg now has native support, but libxvid still provides a better image.
   build_libsrt # requires gnutls, mingw-std-threads
-  if [[ $ffmpeg_git_checkout_version != *"n6.0"* ]] && [[ $ffmpeg_git_checkout_version != *"n5"* ]] && [[ $ffmpeg_git_checkout_version != *"n4"* ]] && [[ $ffmpeg_git_checkout_version != *"n3"* ]] && [[ $ffmpeg_git_checkout_version != *"n2"* ]]; then
-    # Disable libaribcatption on old versions
-    build_libaribcaption
-  fi
-  build_libaribb24
-  build_libtesseract
-  build_lensfun  # requires png, zlib, iconv
+  # if [[ $ffmpeg_git_checkout_version != *"n6.0"* ]] && [[ $ffmpeg_git_checkout_version != *"n5"* ]] && [[ $ffmpeg_git_checkout_version != *"n4"* ]] && [[ $ffmpeg_git_checkout_version != *"n3"* ]] && [[ $ffmpeg_git_checkout_version != *"n2"* ]]; then
+  #   # Disable libaribcatption on old versions
+  #   build_libaribcaption
+  # fi
+  # build_libaribb24
+  # build_libtesseract
+  # build_lensfun  # requires png, zlib, iconv
   # build_libtensorflow # broken
-  build_libvpx
-  build_libx265
-  build_libopenh264
-  build_libaom
-  build_dav1d
+  # build_libvpx
+  # build_libx265
+  # build_libopenh264
+  # build_libaom
+  # build_dav1d
   if [[ $OSTYPE != darwin* ]]; then
     build_vulkan
   fi
-  build_avisynth
-  build_libx264 # at bottom as it might internally build a copy of ffmpeg (which needs all the above deps...
+  # build_avisynth
+  # build_libx264 # at bottom as it might internally build a copy of ffmpeg (which needs all the above deps...
  }
 
 build_apps() {
@@ -2874,7 +2883,7 @@ build_mplayer=n
 build_vlc=n
 build_lsw=n # To build x264 with L-Smash-Works.
 build_dependencies=y
-git_get_latest=y
+git_get_latest=n
 prefer_stable=y # Only for x264 and x265.
 build_intel_qsv=y # note: not windows xp friendly!
 build_amd_amf=y
